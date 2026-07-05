@@ -28,7 +28,7 @@ Final Project/
 ├── .gitignore                     # Excludes temporary and extremely large files (like raw datasets)
 │
 ├── Excel/                         # 1. Excel Component
-│   └── DEPI Graduation Project.xlsx (Excluded from Git due to size >100MB; contains cleaning/analysis)
+│   └── DEPI Graduation Project.zip (Compressed archive of the 113.8MB Excel project; extract to view)
 │
 ├── Sql/                           # 2. SQL Component
 │   └── Depi Graduation Project SQL.sql # SQL Server analysis queries (demographics, habits, states)
