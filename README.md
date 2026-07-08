@@ -43,10 +43,6 @@ Final Project/
     ├── pipelines/                 # Training scripts
     │   ├── ml_pipeline.py         # Baseline V1 Pipeline (6 models)
     │   └── ml_pipeline_v2.py      # Tuned V2 Pipeline (Optuna optimization)
-    ├── scripts/                   # Auxiliary data manipulation scripts
-    │   ├── fix_comorbidity_nulls.py       # Resolves missing values in database
-    │   ├── add_predictions_to_star_schema.py # Merges ML predictions into dimensions
-    │   └── run_export_v2.py               # Evaluates best model & outputs excel file
     └── outputs/                   # Visualizations, models, and metric logs
         ├── best_model.pkl         # V1 baseline model (30.8 MB)
         ├── xgb_model.pkl

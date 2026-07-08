@@ -31,9 +31,6 @@
 ### أ. الهيكل البرمجي للمشروع:
 *   [ml_pipeline.py](file:///Machine%20Learning/pipelines/ml_pipeline.py): بناء خط الإنتاج الأساسي (V1 Baseline) وتدريب 6 نماذج بالمعاملات الافتراضية وحفظ النتائج في `outputs/`.
 *   [ml_pipeline_v2.py](file:///Machine%20Learning/pipelines/ml_pipeline_v2.py): خط الإنتاج المتقدم (V2 Tuned) باستخدام **Optuna** للتحسين البايزي وحساب منحنيات التعلم وحفظ النتائج في `outputs/v2/`.
-*   [run_export_v2.py](file:///Machine%20Learning/scripts/run_export_v2.py): تطبيق أفضل نموذج محسن (LightGBM V2) على كامل البيانات، وتطبيق الكلسترينج وتصدير النتائج لملف إكسيل شامل.
-*   [add_predictions_to_star_schema.py](file:///Machine%20Learning/scripts/add_predictions_to_star_schema.py): دمج الاحتماليات، التشخيصات الصريحة، وتصنيفات المجموعات داخل مستودع البيانات.
-*   [fix_comorbidity_nulls.py](file:///Machine%20Learning/scripts/fix_comorbidity_nulls.py): سكريبت تنظيف البيانات ومعالجة القيم المفقودة في قواعد البيانات لضمان دقة العمل بنسبة 100%.
 *   [app.py](file:///Machine%20Learning/app.py): واجهة المستخدم الطبية التفاعلية المبنية بـ **Streamlit** والتي تدعم تفسير SHAP الفوري.
 
 ---
