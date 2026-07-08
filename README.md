@@ -25,6 +25,7 @@ This graduation project delivers an end-to-end medical decision support system. 
 |------|------|
 | **Abdelrahman Alnaggar** | Machine Learning & AI Pipeline + Power BI Dashboard |
 | **Ahmed Elsayed** | Excel Data Analysis + SQL Database & Querying |
+| **Ali Khaled** |
 
 ---
 
