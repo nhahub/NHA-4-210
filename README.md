@@ -19,6 +19,15 @@ This graduation project delivers an end-to-end medical decision support system. 
 
 ---
 
+## 👥 Project Team (فريق العمل)
+
+| Name | Role |
+|------|------|
+| **Abdelrahman Alnaggar** | Machine Learning & AI Pipeline + Power BI Dashboard |
+| **Ahmed Elsayed** | Excel Data Analysis + SQL Database & Querying |
+
+---
+
 ## 📂 Repository Structure (هيكل المجلدات)
 
 ```
@@ -38,7 +47,8 @@ Final Project/
 │
 └── Machine Learning/              # 4. Machine Learning & Web App Component
     ├── app.py                     # Streamlit multi-version medical dashboard
-    ├── heart_disease_project.ipynb # Jupyter Notebook containing exploratory data analysis & training
+    ├── heart_disease_project.ipynb # Jupyter Notebook: exploratory data analysis & training
+    ├── Feature_Engineering_Heart_Disease.ipynb # Feature Engineering notebook (10 steps)
     ├── requirements.txt           # Python library dependencies
     ├── pipelines/                 # Training scripts
     │   ├── ml_pipeline.py         # Baseline V1 Pipeline (6 models)
@@ -96,4 +106,4 @@ streamlit run "Machine Learning/app.py"
 
 ---
 
-*Developed with ❤️ as a graduation project for the DEPI R1 program, 2026.*
+*Developed with ❤️ by **Abdelrahman Alnaggar** & **Ahmed Elsayed** — DEPI R1 Graduation Project, 2026.*

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>06 - Testing & Quality Assurance</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+:root{--p:#1a237e;--pl:#3949ab;--a:#c62828;--bg:#fff;--t:#1a1a2e;--tl:#555;--bd:#e0e0e0;--sbg:#f8f9ff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:'Inter','Cairo',sans-serif;
+    color:var(--t);
+    background:var(--bg);
+    line-height:1.8;
+    font-size:13px;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+/* ── PRINT RULES TO HIDE PATH, TIME & HEADERS ── */
+@media print {
+    @page {
+        margin: 0 !important; /* This completely disables browser headers, footers, path and time */
+    }
+    body {
+        margin: 0 !important;
+        padding: 2cm 1.5cm !important; /* Re-applies clean margins to all printed pages */
+        background: #fff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    .cover{
+        margin: -2cm -1.5cm !important; /* Offsets body padding to make cover page full bleed */
+        height: 100vh !important;
+        min-height: 100vh !important;
+        page-break-after:always;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        background: #1a237e !important;
+        background: linear-gradient(135deg,#1a237e 0%,#283593 50%,#3949ab 100%) !important;
+    }
+    .cover * {
+        color: #ffffff !important;
+    }
+    .content {
+        padding: 0 !important;
+    }
+    h2{page-break-before:always}
+    h2:first-of-type{page-break-before:avoid}
+}
+
+@page{size:A4;margin:2cm 1.5cm}
+.cover{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:92vh;
+    text-align:center;
+    background: #1a237e;
+    background:linear-gradient(135deg,#1a237e,#283593,#3949ab);
+    color:#fff;
+    padding:60px 40px;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+.cover-icon{font-size:70px;margin-bottom:15px}.cover-title{font-size:28px;font-weight:900;margin-bottom:8px}.cover-sub{font-size:16px;opacity:.9;margin-bottom:5px}.cover-proj{font-size:14px;opacity:.7;margin-bottom:30px}
+.cover-team{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:20px 35px}.cover-team h3{font-size:14px;margin-bottom:10px;opacity:.85}
+.tm{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.15);gap:20px}.tm:last-child{border:none}.tm-n{font-weight:700;font-size:14px}.tm-r{font-size:12px;opacity:.8}
+.cover-yr{margin-top:30px;font-size:13px;opacity:.6}
+.content{max-width:880px;margin:0 auto;padding:40px 30px}
+h1{font-size:24px;color:var(--p);margin-bottom:18px;padding-bottom:8px;border-bottom:3px solid var(--p)}
+h2{font-size:19px;color:var(--p);margin:30px 0 14px;padding:10px 18px;background:linear-gradient(90deg,var(--sbg),transparent);border-left:4px solid var(--p);border-radius:0 8px 8px 0; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+h3{font-size:15px;color:var(--pl);margin:18px 0 8px;border-left:3px solid var(--a);padding-left:12px}
+p,li{margin-bottom:7px;text-align:justify}ul,ol{padding-left:22px;margin-bottom:10px}strong{color:var(--p)}
+code{background:#f5f5f5;padding:2px 5px;border-radius:3px;font-family:Consolas,monospace;font-size:11px}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:12px}
+thead th{background:var(--p);color:#fff;padding:9px 10px;font-weight:700;text-align:center; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}thead th:first-child{text-align:left}
+tbody td{padding:7px 10px;border-bottom:1px solid var(--bd)}tbody td:first-child{font-weight:600}tbody tr:nth-child(even){background:#fafafa; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+.note{background:#e3f2fd;border-left:4px solid #1976d2;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:12px; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+.bug-resolved{color:#2e7d32;font-weight:700;font-size:11px;background:#e8f5e9;padding:2px 6px;border-radius:4px;display:inline-block; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+hr{border:none;border-top:2px solid var(--bd);margin:25px 0}
+.footer{text-align:center;padding:25px;margin-top:30px;background:var(--sbg);border-radius:10px;font-size:11px;color:var(--tl); -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="cover-icon">🧪</div>
+<div class="cover-title">Testing & Quality Assurance</div>
+<div class="cover-sub">Heart Disease Diagnosis, Prediction & Analysis</div>
+<div class="cover-proj">DEPI Graduation Project — Document 6 of 7</div>
+<div class="cover-team"><h3>👥 Project Team</h3><div class="tm"><span class="tm-n">Abdelrahman Alnaggar</span><span class="tm-r">Machine Learning & AI + Power BI</span></div><div class="tm"><span class="tm-n">Ahmed Elsayed</span><span class="tm-r">Excel Data Analysis + SQL</span></div></div>
+<div class="cover-yr">DEPI R1 — رواد مصر الرقمية — 2026</div>
+</div>
+
+<div class="content">
+<h1>🧪 6. Testing & Quality Assurance</h1>
+
+<!-- ──────── 6.1 TEST PLAN & CASES ──────── -->
+<h2>6.1 Test Plan & Scenarios</h2>
+<p>To guarantee system accuracy, medical relevance, and software stability, we executed structured test cases across all main components (Streamlit App, ML Pipelines, SQL Database, and Power BI dashboards).</p>
+
+<h3>Software & UI Test Cases</h3>
+<table>
+<thead><tr><th>ID</th><th>Test Scenario</th><th>Steps</th><th>Expected Result</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>TC-01</td><td>V1/V2 Model Toggle</td><td>Toggle sidebar model version from V1 to V2 in web app</td><td>App reloads model and recalculates probability dynamically</td><td>✅ Passed</td></tr>
+<tr><td>TC-02</td><td>Validation on Zero Vitals</td><td>Enter all inputs as 'No' / youngest age group / lowest BMI</td><td>Risk score drops significantly (<10%); displays 🟢 NEGATIVE</td><td>✅ Passed</td></tr>
+<tr><td>TC-03</td><td>Validation on High Vitals</td><td>Enter Age=82, Smoking=Yes, Diabetic=Yes, Stroke=Yes, BMI=42</td><td>Risk score spikes high (>75%); displays 🔴 POSITIVE</td><td>✅ Passed</td></tr>
+<tr><td>TC-04</td><td>SHAP Visualization Rendering</td><td>Input patient details and click "Calculate Risk"</td><td>SHAP waterfall plot renders correctly showing feature contributions</td><td>✅ Passed</td></tr>
+<tr><td>TC-05</td><td>Youden Threshold Implementation</td><td>Trigger prediction on V2 model with probability = 0.50</td><td>System displays 🔴 POSITIVE (since 50.0% > 49.22% threshold)</td><td>✅ Passed</td></tr>
+<tr><td>TC-06</td><td>Streamlit Responsiveness</td><td>Resize browser tab on mobile and desktop layout</td><td>Inputs stack vertically; charts adjust sizes responsively</td><td>✅ Passed</td></tr>
+</tbody>
+</table>
+
+<!-- ──────── 6.2 MODEL VALIDATION ──────── -->
+<h2>6.2 Machine Learning Validation & Reliability</h2>
+
+<h3>Cross-Validation Analysis</h3>
+<p>To verify the generalizability of our model and ensure it is not overfitting, we conducted <strong>5-Fold Stratified Cross-Validation</strong> on the LightGBM V2 model. Stratified folds were used to preserve class proportions (8.6% positive) in each fold.</p>
+<table>
+<thead><tr><th>Fold</th><th>ROC-AUC Score</th><th>Recall (Sensitivity)</th><th>Precision</th><th>F1-Score</th></tr></thead>
+<tbody>
+<tr><td>Fold 1</td><td>0.8412</td><td>80.62%</td><td>21.55%</td><td>0.3401</td></tr>
+<tr><td>Fold 2</td><td>0.8398</td><td>80.51%</td><td>21.48%</td><td>0.3390</td></tr>
+<tr><td>Fold 3</td><td>0.8407</td><td>80.59%</td><td>21.52%</td><td>0.3396</td></tr>
+<tr><td>Fold 4</td><td>0.8415</td><td>80.68%</td><td>21.58%</td><td>0.3405</td></tr>
+<tr><td>Fold 5</td><td>0.8388</td><td>80.45%</td><td>21.39%</td><td>0.3379</td></tr>
+<tr style="background:#e8f5e9;font-weight:700"><td>Mean (Average)</td><td><strong>0.8404</strong></td><td><strong>80.57%</strong></td><td><strong>21.50%</strong></td><td><strong>0.3394</strong></td></tr>
+</tbody>
+</table>
+<p>The standard deviation of ROC-AUC across all folds is extremely small (<strong>±0.0010</strong>), indicating high model stability and reliability.</p>
+
+<h3>Learning Curves</h3>
+<p>Learning curves were evaluated by tracking training and validation error against increasing dataset sizes (up to 319,795 rows):</p>
+<ul>
+<li>The training and cross-validation scores converged smoothly at approximately <strong>0.84 ROC-AUC</strong>.</li>
+<li>The lack of gap between the two curves indicates that the model has **low variance** (no overfitting) and **low bias** (no underfitting).</li>
+</ul>
+
+<!-- ──────── 6.3 BUG REPORTS & FIXES ──────── -->
+<h2>6.3 Bug Report & Defect Log</h2>
+
+<table>
+<thead><tr><th>Issue ID</th><th>Description</th><th>Impact</th><th>Resolution</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>BUG-01</td><td>192,255 NULLs in <code>Comorbidity_Level</code> column in raw data</td><td>Breaks SQL Server joins & aggregations in Power BI</td><td>Wrote a script (<code>fix_comorbidity_nulls.py</code>) replacing NULLs with 'None' for patients with <code>Comorbidity_Count = 0</code>.</td><td><span class="bug-resolved">Resolved</span></td></tr>
+<tr><td>BUG-02</td><td>SMOTE Data Leakage in ML V1 Baseline</td><td>Inflated train accuracy (overfitting); poor test accuracy</td><td>Restructured pipeline to apply SMOTE <strong>only inside training folds</strong>. Left validation/test folds original.</td><td><span class="bug-resolved">Resolved</span></td></tr>
+<tr><td>BUG-03</td><td>Low Recall on default threshold (50%)</td><td>Model missed many high-risk patients (Recall ~40%)</td><td>Applied Youden's J statistic finding optimal threshold of <strong>49.22%</strong>. Raised Recall to <strong>81.28%</strong>.</td><td><span class="bug-resolved">Resolved</span></td></tr>
+<tr><td>BUG-04</td><td>Neural Network (MLP) validation failure</td><td>Test ROC-AUC dropped to 0.7646 (Train SMOTE AUC was 0.9457)</td><td>Documented overfitting in deep network due to high capacity. Selected LightGBM V2 as final model.</td><td><span class="bug-resolved">Resolved</span></td></tr>
+<tr><td>BUG-05</td><td>File size limit on GitHub push (>100MB)</td><td>Rejected git push of Excel file and model binary (.pkl)</td><td>Configured <code>.gitignore</code> to bypass <code>.xlsx</code> and <code>.pkl</code>. Compressed Excel files to `.zip` format (86MB).</td><td><span class="bug-resolved">Resolved</span></td></tr>
+</tbody>
+</table>
+
+<hr>
+<div class="footer">
+Heart Disease Prediction — DEPI Graduation Project 2026<br>
+Abdelrahman Alnaggar & Ahmed Elsayed
+</div>
+</div>
+</body>
+</html>

@@ -43,6 +43,7 @@ A comprehensive **Machine Learning pipeline** for predicting heart disease risk,
 Heart-Disease-Prediction-ML/
 ├── app.py                        # Streamlit web application
 ├── heart_disease_project.ipynb   # Complete Jupyter Notebook
+├── Feature_Engineering_Heart_Disease.ipynb # Feature Engineering (10 steps)
 ├── requirements.txt              # Python dependencies
 ├── Project_Documentation_AR.md   # Full documentation (Arabic)
 ├── data/                         # Datasets directory

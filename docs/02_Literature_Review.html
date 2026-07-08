@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>02 - Literature Review</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+:root{--p:#1a237e;--pl:#3949ab;--a:#c62828;--bg:#fff;--t:#1a1a2e;--tl:#555;--bd:#e0e0e0;--sbg:#f8f9ff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:'Inter','Cairo',sans-serif;
+    color:var(--t);
+    background:var(--bg);
+    line-height:1.8;
+    font-size:13px;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+/* ── PRINT RULES TO HIDE PATH, TIME & HEADERS ── */
+@media print {
+    @page {
+        margin: 0 !important; /* This completely disables browser headers, footers, path and time */
+    }
+    body {
+        margin: 0 !important;
+        padding: 2cm 1.5cm !important; /* Re-applies clean margins to all printed pages */
+        background: #fff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    .cover{
+        margin: -2cm -1.5cm !important; /* Offsets body padding to make cover page full bleed */
+        height: 100vh !important;
+        min-height: 100vh !important;
+        page-break-after:always;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        background: #1a237e !important;
+        background: linear-gradient(135deg,#1a237e 0%,#283593 50%,#3949ab 100%) !important;
+    }
+    .cover * {
+        color: #ffffff !important;
+    }
+    .content {
+        padding: 0 !important;
+    }
+    h2{page-break-before:always}
+    h2:first-of-type{page-break-before:avoid}
+}
+
+@page{size:A4;margin:2cm 1.5cm}
+.cover{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:92vh;
+    text-align:center;
+    background: #1a237e;
+    background:linear-gradient(135deg,#1a237e,#283593,#3949ab);
+    color:#fff;
+    padding:60px 40px;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+.cover-icon{font-size:70px;margin-bottom:15px}.cover-title{font-size:28px;font-weight:900;margin-bottom:8px}
+.cover-sub{font-size:16px;opacity:.9;margin-bottom:5px}.cover-proj{font-size:14px;opacity:.7;margin-bottom:30px}
+.cover-team{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:20px 35px}.cover-team h3{font-size:14px;margin-bottom:10px;opacity:.85}
+.tm{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.15);gap:20px}.tm:last-child{border:none}
+.tm-n{font-weight:700;font-size:14px}.tm-r{font-size:12px;opacity:.8}
+.cover-yr{margin-top:30px;font-size:13px;opacity:.6}
+.content{max-width:880px;margin:0 auto;padding:40px 30px}
+h1{font-size:24px;color:var(--p);margin-bottom:18px;padding-bottom:8px;border-bottom:3px solid var(--p)}
+h2{font-size:19px;color:var(--p);margin:30px 0 14px;padding:10px 18px;background:linear-gradient(90deg,var(--sbg),transparent);border-left:4px solid var(--p);border-radius:0 8px 8px 0; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+h3{font-size:15px;color:var(--pl);margin:18px 0 8px;border-left:3px solid var(--a);padding-left:12px}
+p,li{margin-bottom:7px;text-align:justify}ul,ol{padding-left:22px;margin-bottom:10px}
+strong{color:var(--p)}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:12px}
+thead th{background:var(--p);color:#fff;padding:9px 10px;font-weight:700;text-align:center; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}thead th:first-child{text-align:left}
+tbody td{padding:7px 10px;border-bottom:1px solid var(--bd);text-align:center}tbody td:first-child{text-align:left;font-weight:600}
+tbody tr:nth-child(even){background:#fafafa; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+.note{background:#e3f2fd;border-left:4px solid #1976d2;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:12px; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+.ref{background:var(--sbg);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;margin:8px 0;font-size:12px; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+.ref strong{font-size:13px}
+hr{border:none;border-top:2px solid var(--bd);margin:25px 0}
+.footer{text-align:center;padding:25px;margin-top:30px;background:var(--sbg);border-radius:10px;font-size:11px;color:var(--tl); -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+</style>
+</head>
+<body>
+
+<div class="cover">
+<div class="cover-icon">📚</div>
+<div class="cover-title">Literature Review</div>
+<div class="cover-sub">Heart Disease Diagnosis, Prediction & Analysis</div>
+<div class="cover-proj">DEPI Graduation Project — Document 2 of 7</div>
+<div class="cover-team">
+<h3>👥 Project Team</h3>
+<div class="tm"><span class="tm-n">Abdelrahman Alnaggar</span><span class="tm-r">Machine Learning & AI + Power BI</span></div>
+<div class="tm"><span class="tm-n">Ahmed Elsayed</span><span class="tm-r">Excel Data Analysis + SQL</span></div>
+</div>
+<div class="cover-yr">DEPI R1 — رواد مصر الرقمية — 2026</div>
+</div>
+
+<div class="content">
+
+<h1>📚 2. Literature Review</h1>
+
+<h2>2.1 Background & Domain Knowledge</h2>
+<p>Cardiovascular diseases (CVDs) remain the <strong>leading cause of death globally</strong>, accounting for an estimated 17.9 million deaths per year (WHO, 2021). Early detection and risk assessment are critical for reducing mortality. Machine learning approaches have shown promising results in predicting heart disease risk from behavioral and clinical data.</p>
+
+<h3>Key Research Findings</h3>
+
+<div class="ref">
+<strong>[1] CDC BRFSS 2020 Survey</strong><br>
+The Behavioral Risk Factor Surveillance System (BRFSS) is the largest continuously conducted health survey in the world, with 400,000+ adults interviewed annually. Our dataset (319,795 records, 48 features) covers demographics, behavioral habits, chronic conditions, and self-reported health status. The class imbalance ratio is 1:10.7 (8.56% positive for heart disease).
+</div>
+
+<div class="ref">
+<strong>[2] LightGBM for Medical Classification (Ke et al., 2017)</strong><br>
+LightGBM's leaf-wise tree growth strategy and native support for class imbalance (<code>is_unbalance=True</code>) make it highly effective for medical datasets. Studies show LightGBM achieves comparable or superior performance to XGBoost with significantly faster training time. Our results confirm this — LightGBM V2 achieved the highest ROC-AUC (0.8404) among all individual models.
+</div>
+
+<div class="ref">
+<strong>[3] SMOTE for Imbalanced Medical Data (Chawla et al., 2002)</strong><br>
+Synthetic Minority Over-sampling Technique (SMOTE) generates synthetic samples along the line segments between existing minority instances. Critical best practice: SMOTE must be applied <strong>only to training data</strong> to prevent data leakage. Our implementation follows this strictly — test data remains original and unmodified.
+</div>
+
+<div class="ref">
+<strong>[4] Bayesian Hyperparameter Optimization — Optuna (Akiba et al., 2019)</strong><br>
+Optuna's Tree-structured Parzen Estimator (TPE) provides more efficient hyperparameter search than Grid Search or Random Search. We used 50 trials per model on 50,000-sample subsets, discovering optimal parameters that improved our baseline LightGBM from 0.8378 to 0.8404 ROC-AUC.
+</div>
+
+<div class="ref">
+<strong>[5] SHAP Values for Explainable AI (Lundberg & Lee, 2017)</strong><br>
+SHapley Additive exPlanations provides theoretically grounded feature importance based on cooperative game theory. Unlike traditional feature importance, SHAP shows <strong>directional contribution</strong> — whether a feature increases or decreases risk. Our Streamlit app integrates real-time SHAP waterfall plots for individual patient explanations.
+</div>
+
+<div class="ref">
+<strong>[6] Youden's J Statistic for Optimal Threshold (Youden, 1950)</strong><br>
+In medical screening, the default 50% classification threshold is suboptimal due to asymmetric misclassification costs (missing a sick patient is far worse than a false alarm). Youden's J (J = Sensitivity + Specificity − 1) finds the ROC-optimal threshold. We discovered 49.22% as our optimal threshold, achieving 81.28% Recall.
+</div>
+
+<div class="ref">
+<strong>[7] Star Schema for Healthcare Data Warehousing (Kimball, 2013)</strong><br>
+The Star Schema design pattern — with a central fact table surrounded by dimension tables — is the gold standard for analytical data warehousing. Our implementation uses <code>fact_Diagnosis</code> with 6 dimension tables (Patients, HealthStatus, Conditions, Lifestyle, Geography, Date), enabling efficient Power BI reporting.
+</div>
+
+<h2>2.2 Comparative Analysis with Existing Work</h2>
+
+<table>
+<thead><tr><th>Study</th><th>Dataset</th><th>Best Model</th><th>ROC-AUC</th><th>Key Difference from Ours</th></tr></thead>
+<tbody>
+<tr><td>Kaggle Top Notebooks (2021-2023)</td><td>BRFSS 2020</td><td>Various</td><td>0.82–0.84</td><td>No Optuna tuning, no Star Schema, no web app</td></tr>
+<tr><td>Our Project</td><td>BRFSS 2020 (319K)</td><td>LightGBM V2</td><td><strong>0.8404</strong></td><td>Full pipeline: FE + Optuna + SHAP + Streamlit + Power BI + Star Schema</td></tr>
+<tr><td>Ali et al. (2021)</td><td>Cleveland + Framingham</td><td>Random Forest</td><td>0.89</td><td>Smaller dataset (303 records), different features</td></tr>
+<tr><td>Mohan et al. (2019)</td><td>Cleveland</td><td>Hybrid RF</td><td>0.88</td><td>Only 303 records, no real-world validation at scale</td></tr>
+</tbody>
+</table>
+
+<div class="note">
+<strong>Key Insight:</strong> Our project is unique in combining <strong>4 pillars</strong> (SQL + Excel + Power BI + ML/AI) into a single integrated system. While smaller clinical datasets achieve higher AUC due to less noise, our model operates at scale (319K patients) with real-world behavioral data, making it more generalizable.
+</div>
+
+<h2>2.3 Technologies & Frameworks Review</h2>
+<table>
+<thead><tr><th>Technology</th><th>Purpose</th><th>Why Selected</th></tr></thead>
+<tbody>
+<tr><td>Python 3.8+</td><td>Core programming language</td><td>Rich ML ecosystem (scikit-learn, pandas, SHAP)</td></tr>
+<tr><td>LightGBM</td><td>Primary ML model</td><td>Best AUC + native imbalance handling + fast</td></tr>
+<tr><td>Optuna</td><td>Hyperparameter tuning</td><td>Bayesian optimization outperforms Grid/Random Search</td></tr>
+<tr><td>SHAP</td><td>Explainable AI</td><td>Game-theory based, medically interpretable</td></tr>
+<tr><td>Streamlit</td><td>Web application framework</td><td>Fast prototyping, Python-native, beautiful UI</td></tr>
+<tr><td>Power BI</td><td>Business intelligence dashboards</td><td>Industry standard, drag-and-drop, Star Schema support</td></tr>
+<tr><td>SQL Server</td><td>Database & querying</td><td>Enterprise-grade, excellent for Star Schema</td></tr>
+<tr><td>Excel</td><td>Initial data analysis</td><td>Pivot tables, statistical profiling, accessible</td></tr>
+<tr><td>scikit-learn</td><td>ML pipeline infrastructure</td><td>Standard library for classification, preprocessing</td></tr>
+<tr><td>GitHub</td><td>Version control & collaboration</td><td>Industry standard, public repository, CI/CD</td></tr>
+</tbody>
+</table>
+
+<h2>2.4 Suggested Improvements & Future Work</h2>
+<ol>
+<li><strong>Deep Learning Models:</strong> Explore 1D-CNN or TabNet architectures for tabular data to potentially improve AUC beyond 0.84.</li>
+<li><strong>Real-Time EHR Integration:</strong> Connect to hospital Electronic Health Record systems via HL7 FHIR APIs for live patient data.</li>
+<li><strong>Multi-Language Support:</strong> Extend the Streamlit app to support Arabic interface for Egyptian hospitals.</li>
+<li><strong>Federated Learning:</strong> Train models across multiple hospitals without sharing patient data for privacy compliance.</li>
+<li><strong>Time-Series Analysis:</strong> Track individual patient risk trajectories over multiple visits using longitudinal data.</li>
+<li><strong>Mobile App:</strong> Develop a Flutter/React Native mobile version for field healthcare workers.</li>
+</ol>
+
+<h2>2.5 Grading Criteria Alignment</h2>
+<table>
+<thead><tr><th>Criteria</th><th>Weight</th><th>Our Coverage</th></tr></thead>
+<tbody>
+<tr><td>Documentation Quality</td><td>20%</td><td>7 comprehensive documents, Arabic + English</td></tr>
+<tr><td>Implementation & Code Quality</td><td>30%</td><td>Modular pipelines, clean code, well-commented</td></tr>
+<tr><td>Testing & Validation</td><td>15%</td><td>Cross-validation, learning curves, 6 model comparison</td></tr>
+<tr><td>Presentation & Demo</td><td>15%</td><td>Interactive Streamlit app + Power BI dashboard</td></tr>
+<tr><td>Innovation & Complexity</td><td>20%</td><td>Optuna + SHAP + Star Schema + K-Means + Multi-Version App</td></tr>
+</tbody>
+</table>
+
+<hr>
+<div class="footer">
+Heart Disease Prediction — DEPI Graduation Project 2026<br>
+Abdelrahman Alnaggar & Ahmed Elsayed
+</div>
+</div>
+</body>
+</html>

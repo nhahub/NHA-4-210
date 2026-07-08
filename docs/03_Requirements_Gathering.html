@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>03 - Requirements Gathering</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+:root{--p:#1a237e;--pl:#3949ab;--a:#c62828;--bg:#fff;--t:#1a1a2e;--tl:#555;--bd:#e0e0e0;--sbg:#f8f9ff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:'Inter','Cairo',sans-serif;
+    color:var(--t);
+    background:var(--bg);
+    line-height:1.8;
+    font-size:13px;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+/* ── PRINT RULES TO HIDE PATH, TIME & HEADERS ── */
+@media print {
+    @page {
+        margin: 0 !important; /* This completely disables browser headers, footers, path and time */
+    }
+    body {
+        margin: 0 !important;
+        padding: 2cm 1.5cm !important; /* Re-applies clean margins to all printed pages */
+        background: #fff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    .cover{
+        margin: -2cm -1.5cm !important; /* Offsets body padding to make cover page full bleed */
+        height: 100vh !important;
+        min-height: 100vh !important;
+        page-break-after:always;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        background: #1a237e !important;
+        background: linear-gradient(135deg,#1a237e 0%,#283593 50%,#3949ab 100%) !important;
+    }
+    .cover * {
+        color: #ffffff !important;
+    }
+    .content {
+        padding: 0 !important;
+    }
+    h2{page-break-before:always}
+    h2:first-of-type{page-break-before:avoid}
+}
+
+@page{size:A4;margin:2cm 1.5cm}
+.cover{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:92vh;
+    text-align:center;
+    background: #1a237e;
+    background:linear-gradient(135deg,#1a237e,#283593,#3949ab);
+    color:#fff;
+    padding:60px 40px;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+.cover-icon{font-size:70px;margin-bottom:15px}.cover-title{font-size:28px;font-weight:900;margin-bottom:8px}.cover-sub{font-size:16px;opacity:.9;margin-bottom:5px}.cover-proj{font-size:14px;opacity:.7;margin-bottom:30px}
+.cover-team{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:20px 35px}.cover-team h3{font-size:14px;margin-bottom:10px;opacity:.85}
+.tm{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.15);gap:20px}.tm:last-child{border:none}.tm-n{font-weight:700;font-size:14px}.tm-r{font-size:12px;opacity:.8}
+.cover-yr{margin-top:30px;font-size:13px;opacity:.6}
+.content{max-width:880px;margin:0 auto;padding:40px 30px}
+h1{font-size:24px;color:var(--p);margin-bottom:18px;padding-bottom:8px;border-bottom:3px solid var(--p)}
+h2{font-size:19px;color:var(--p);margin:30px 0 14px;padding:10px 18px;background:linear-gradient(90deg,var(--sbg),transparent);border-left:4px solid var(--p);border-radius:0 8px 8px 0; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+h3{font-size:15px;color:var(--pl);margin:18px 0 8px;border-left:3px solid var(--a);padding-left:12px}
+p,li{margin-bottom:7px;text-align:justify}ul,ol{padding-left:22px;margin-bottom:10px}strong{color:var(--p)}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:12px}
+thead th{background:var(--p);color:#fff;padding:9px 10px;font-weight:700;text-align:center; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}thead th:first-child{text-align:left}
+tbody td{padding:7px 10px;border-bottom:1px solid var(--bd)}tbody td:first-child{font-weight:600}tbody tr:nth-child(even){background:#fafafa; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+.uc{background:var(--sbg);border:1px solid var(--bd);border-radius:10px;padding:14px 18px;margin:12px 0; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+.uc h4{color:var(--p);margin-bottom:6px;font-size:14px}.uc p{margin:3px 0;font-size:12px}
+hr{border:none;border-top:2px solid var(--bd);margin:25px 0}
+.footer{text-align:center;padding:25px;margin-top:30px;background:var(--sbg);border-radius:10px;font-size:11px;color:var(--tl); -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+.note{background:#e3f2fd;border-left:4px solid #1976d2;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:12px; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="cover-icon">📝</div>
+<div class="cover-title">Requirements Gathering</div>
+<div class="cover-sub">Heart Disease Diagnosis, Prediction & Analysis</div>
+<div class="cover-proj">DEPI Graduation Project — Document 3 of 7</div>
+<div class="cover-team"><h3>👥 Project Team</h3><div class="tm"><span class="tm-n">Abdelrahman Alnaggar</span><span class="tm-r">Machine Learning & AI + Power BI</span></div><div class="tm"><span class="tm-n">Ahmed Elsayed</span><span class="tm-r">Excel Data Analysis + SQL</span></div></div>
+<div class="cover-yr">DEPI R1 — رواد مصر الرقمية — 2026</div>
+</div>
+
+<div class="content">
+<h1>📝 3. Requirements Gathering</h1>
+
+<h2>3.1 Stakeholder Analysis</h2>
+<table>
+<thead><tr><th>Stakeholder</th><th>Type</th><th>Needs & Expectations</th><th>Priority</th></tr></thead>
+<tbody>
+<tr><td>Doctors / Clinicians</td><td>Primary User</td><td>Quick, accurate heart disease risk assessment with explainable results (SHAP); simple input interface</td><td>High</td></tr>
+<tr><td>Hospital Management</td><td>Decision Maker</td><td>Patient segmentation for resource allocation; interactive dashboards (Power BI) for population health insights</td><td>High</td></tr>
+<tr><td>Ministry of Health / Public Health</td><td>Strategic</td><td>State-level risk distribution maps; trend analysis over time; policy-making data for preventive campaigns</td><td>Medium</td></tr>
+<tr><td>Data Analysts</td><td>Technical User</td><td>Clean Star Schema data warehouse; SQL queryable data; well-documented feature engineering pipeline</td><td>Medium</td></tr>
+<tr><td>Patients</td><td>Indirect</td><td>Accurate early screening; clear risk communication from their doctors</td><td>High</td></tr>
+<tr><td>DEPI Review Committee</td><td>Evaluator</td><td>Complete documentation; working demo; innovative techniques; strong presentation</td><td>High</td></tr>
+</tbody>
+</table>
+
+<h2>3.2 User Stories & Use Cases</h2>
+
+<div class="uc">
+<h4>UC-01: Doctor Performs Real-Time Patient Risk Assessment</h4>
+<p><strong>Actor:</strong> Clinician / Doctor</p>
+<p><strong>Precondition:</strong> Streamlit app is running; patient vital signs are available</p>
+<p><strong>Main Flow:</strong></p>
+<ol>
+<li>Doctor opens the Streamlit web application</li>
+<li>Doctor selects model version (V1 Baseline or V2 Optimized)</li>
+<li>Doctor enters patient data (Age, BMI, Smoking status, Diabetes, Stroke history, etc.)</li>
+<li>Doctor clicks "Calculate Risk"</li>
+<li>System computes ML probability using the selected model</li>
+<li>System applies Youden's optimal threshold (49.22% for V2)</li>
+<li>System displays: Risk probability, POSITIVE/NEGATIVE diagnosis card, SHAP waterfall plot</li>
+</ol>
+<p><strong>Postcondition:</strong> Doctor has a clear diagnosis with explainable AI reasoning for clinical decision</p>
+</div>
+
+<div class="uc">
+<h4>UC-02: Hospital Admin Analyzes Patient Population via Power BI</h4>
+<p><strong>Actor:</strong> Hospital Manager / Data Analyst</p>
+<p><strong>Precondition:</strong> Power BI desktop installed; .pbix file loaded with Star Schema data</p>
+<p><strong>Main Flow:</strong></p>
+<ol>
+<li>Admin opens the Power BI dashboard</li>
+<li>Admin uses slicers to filter by State, Age Group, Risk Tier, or Patient Segment</li>
+<li>Dashboard updates KPIs: total patients, heart disease rate, average risk score</li>
+<li>Admin drills down into geographic distribution maps</li>
+<li>Admin reviews K-Means patient segmentation clusters</li>
+</ol>
+<p><strong>Postcondition:</strong> Admin has actionable insights for resource allocation and preventive programs</p>
+</div>
+
+<div class="uc">
+<h4>UC-03: Data Analyst Queries Star Schema via SQL</h4>
+<p><strong>Actor:</strong> Data Analyst / Data Engineer</p>
+<p><strong>Main Flow:</strong></p>
+<ol>
+<li>Analyst connects to SQL Server database</li>
+<li>Analyst runs queries joining fact_Diagnosis with dimension tables</li>
+<li>Analyst extracts demographic insights (e.g., heart disease rate by state, age, BMI category)</li>
+<li>Analyst exports results for reporting</li>
+</ol>
+</div>
+
+<div class="uc">
+<h4>UC-04: Data Analyst Runs ML Pipeline for Retraining</h4>
+<p><strong>Actor:</strong> ML Engineer</p>
+<p><strong>Main Flow:</strong></p>
+<ol>
+<li>Engineer updates the dataset CSV in the data/ folder</li>
+<li>Engineer runs <code>python pipelines/ml_pipeline_v2.py</code></li>
+<li>Pipeline trains 6 models with Optuna optimization</li>
+<li>Pipeline saves best model, metrics, and visualization outputs</li>
+<li>Engineer updates the Streamlit app with new model artifacts</li>
+</ol>
+</div>
+
+<h2>3.3 Functional Requirements</h2>
+<table>
+<thead><tr><th>ID</th><th>Requirement</th><th>Component</th><th>Priority</th></tr></thead>
+<tbody>
+<tr><td>FR-01</td><td>System shall predict heart disease probability for a given patient input</td><td>ML Model</td><td>Must Have</td></tr>
+<tr><td>FR-02</td><td>System shall display POSITIVE/NEGATIVE diagnosis based on optimal threshold</td><td>Streamlit</td><td>Must Have</td></tr>
+<tr><td>FR-03</td><td>System shall generate SHAP waterfall plot for individual patient explanation</td><td>Streamlit</td><td>Must Have</td></tr>
+<tr><td>FR-04</td><td>System shall support switching between V1 (Baseline) and V2 (Optimized) models</td><td>Streamlit</td><td>Should Have</td></tr>
+<tr><td>FR-05</td><td>System shall store patient data in a Star Schema data warehouse</td><td>SQL Server</td><td>Must Have</td></tr>
+<tr><td>FR-06</td><td>System shall provide interactive dashboards with slicers and KPIs</td><td>Power BI</td><td>Must Have</td></tr>
+<tr><td>FR-07</td><td>System shall segment patients into 5 risk clusters using K-Means</td><td>ML Pipeline</td><td>Should Have</td></tr>
+<tr><td>FR-08</td><td>System shall train and compare 6 different ML algorithms</td><td>ML Pipeline</td><td>Must Have</td></tr>
+<tr><td>FR-09</td><td>System shall perform feature engineering generating 25+ new features</td><td>Python/FE</td><td>Must Have</td></tr>
+<tr><td>FR-10</td><td>System shall provide Excel-based statistical profiling and pivot tables</td><td>Excel</td><td>Must Have</td></tr>
+<tr><td>FR-11</td><td>System shall handle class imbalance via SMOTE on training data only</td><td>ML Pipeline</td><td>Must Have</td></tr>
+<tr><td>FR-12</td><td>System shall optimize hyperparameters using Optuna Bayesian search</td><td>ML Pipeline</td><td>Should Have</td></tr>
+</tbody>
+</table>
+
+<h2>3.4 Non-Functional Requirements</h2>
+<table>
+<thead><tr><th>ID</th><th>Category</th><th>Requirement</th><th>Metric</th></tr></thead>
+<tbody>
+<tr><td>NFR-01</td><td>Performance</td><td>Model prediction response time</td><td>< 2 seconds per patient</td></tr>
+<tr><td>NFR-02</td><td>Performance</td><td>Model accuracy (ROC-AUC)</td><td>≥ 0.82</td></tr>
+<tr><td>NFR-03</td><td>Performance</td><td>Clinical recall (sensitivity)</td><td>≥ 75%</td></tr>
+<tr><td>NFR-04</td><td>Usability</td><td>Streamlit app requires no technical expertise</td><td>Any doctor can use within 2 minutes</td></tr>
+<tr><td>NFR-05</td><td>Usability</td><td>Power BI dashboard is self-explanatory</td><td>Interactive slicers, clear labels</td></tr>
+<tr><td>NFR-06</td><td>Reliability</td><td>Model consistency across runs</td><td>Fixed random seed (42); reproducible results</td></tr>
+<tr><td>NFR-07</td><td>Scalability</td><td>Handle large datasets</td><td>Tested on 319,795 records successfully</td></tr>
+<tr><td>NFR-08</td><td>Maintainability</td><td>Code is modular and well-documented</td><td>Separate pipelines, notebooks, and app files</td></tr>
+<tr><td>NFR-09</td><td>Portability</td><td>Runs on Windows/Linux with Python 3.8+</td><td>requirements.txt provided</td></tr>
+<tr><td>NFR-10</td><td>Security</td><td>No patient PII stored or transmitted</td><td>CDC BRFSS data is anonymized</td></tr>
+</tbody>
+</table>
+
+<hr>
+<div class="footer">Heart Disease Prediction — DEPI Graduation Project 2026<br>Abdelrahman Alnaggar & Ahmed Elsayed</div>
+</div>
+</body>
+</html>

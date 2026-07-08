@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01 - Project Planning & Management</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+:root{--p:#1a237e;--pl:#3949ab;--a:#c62828;--bg:#fff;--t:#1a1a2e;--tl:#555;--bd:#e0e0e0;--sbg:#f8f9ff;--hl:#fff3e0;--ok:#2e7d32}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:'Inter','Cairo',sans-serif;
+    color:var(--t);
+    background:var(--bg);
+    line-height:1.8;
+    font-size:13px;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+/* ── PRINT RULES TO HIDE PATH, TIME & HEADERS ── */
+@media print {
+    @page {
+        margin: 0 !important; /* This completely disables browser headers, footers, path and time */
+    }
+    body {
+        margin: 0 !important;
+        padding: 2cm 1.5cm !important; /* Re-applies clean margins to all printed pages */
+        background: #fff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    .cover {
+        margin: -2cm -1.5cm !important; /* Offsets body padding to make cover page full bleed */
+        height: 100vh !important;
+        min-height: 100vh !important;
+        page-break-after: always !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        background: #1a237e !important;
+        background: linear-gradient(135deg,#1a237e 0%,#283593 50%,#3949ab 100%) !important;
+    }
+    .cover * {
+        color: #ffffff !important;
+    }
+    .content {
+        padding: 0 !important;
+    }
+    h2 { page-break-before: always; }
+    h2:first-of-type { page-break-before: avoid; }
+    .no-print { display: none; }
+}
+
+.cover{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:92vh;
+    text-align:center;
+    background: #1a237e;
+    background:linear-gradient(135deg,#1a237e 0%,#283593 50%,#3949ab 100%);
+    color:#fff;
+    padding:60px 40px;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+.cover-icon{font-size:70px;margin-bottom:15px}.cover-title{font-size:28px;font-weight:900;margin-bottom:8px}
+.cover-sub{font-size:16px;opacity:.9;margin-bottom:5px}.cover-proj{font-size:14px;opacity:.7;margin-bottom:30px}
+.cover-team{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:20px 35px}
+.cover-team h3{font-size:14px;margin-bottom:10px;opacity:.85}
+.tm{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.15);gap:20px}
+.tm:last-child{border:none}.tm-n{font-weight:700;font-size:14px}.tm-r{font-size:12px;opacity:.8}
+.cover-yr{margin-top:30px;font-size:13px;opacity:.6}
+.content{max-width:880px;margin:0 auto;padding:40px 30px}
+h1{font-size:24px;color:var(--p);margin-bottom:18px;padding-bottom:8px;border-bottom:3px solid var(--p)}
+h2{font-size:19px;color:var(--p);margin:30px 0 14px;padding:10px 18px;background:linear-gradient(90deg,var(--sbg),transparent);border-left:4px solid var(--p);border-radius:0 8px 8px 0; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+h3{font-size:15px;color:var(--pl);margin:18px 0 8px;border-left:3px solid var(--a);padding-left:12px}
+h4{font-size:13px;margin:12px 0 6px;font-weight:700}
+p,li{margin-bottom:7px;text-align:justify}
+ul,ol{padding-left:22px;margin-bottom:10px}
+strong{color:var(--p)}
+code{background:#f5f5f5;padding:2px 5px;border-radius:3px;font-family:Consolas,monospace;font-size:11px}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:12px}
+thead th{background:var(--p);color:#fff;padding:9px 10px;font-weight:700;text-align:center; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+thead th:first-child{text-align:left}
+tbody td{padding:7px 10px;border-bottom:1px solid var(--bd);text-align:center}
+tbody td:first-child{text-align:left;font-weight:600}
+tbody tr:nth-child(even){background:#fafafa; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+.note{background:#e3f2fd;border-left:4px solid #1976d2;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:12px; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+.warn{background:#fff3e0;border-left:4px solid #ff9800;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+.gantt{display:flex;flex-direction:column;gap:4px;margin:15px 0}
+.gantt-row{display:flex;align-items:center;gap:8px}
+.gantt-label{width:180px;font-size:11px;font-weight:600;text-align:right;flex-shrink:0}
+.gantt-bar-wrap{flex:1;background:#eee;border-radius:4px;height:22px;position:relative; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+.gantt-bar{height:100%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:700; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+hr{border:none;border-top:2px solid var(--bd);margin:25px 0}
+.footer{text-align:center;padding:25px;margin-top:30px;background:var(--sbg);border-radius:10px;font-size:11px;color:var(--tl); -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+.risk-h{color:#c62828;font-weight:700}.risk-m{color:#f57f17;font-weight:700}.risk-l{color:#2e7d32;font-weight:700}
+</style>
+</head>
+<body>
+
+<div class="cover">
+<div class="cover-icon">📋</div>
+<div class="cover-title">Project Planning & Management</div>
+<div class="cover-sub">Heart Disease Diagnosis, Prediction & Analysis</div>
+<div class="cover-proj">DEPI Graduation Project — Document 1 of 7</div>
+<div class="cover-team">
+<h3>👥 Project Team</h3>
+<div class="tm"><span class="tm-n">Abdelrahman Alnaggar</span><span class="tm-r">Machine Learning & AI + Power BI</span></div>
+<div class="tm"><span class="tm-n">Ahmed Elsayed</span><span class="tm-r">Excel Data Analysis + SQL</span></div>
+</div>
+<div class="cover-yr">DEPI R1 — رواد مصر الرقمية — 2026</div>
+</div>
+
+<div class="content">
+
+<h1>📋 1. Project Planning & Management</h1>
+
+<!-- ──────── PROJECT PROPOSAL ──────── -->
+<h2>1.1 Project Proposal</h2>
+
+<h3>Overview</h3>
+<p>This project delivers an <strong>end-to-end medical decision support system</strong> for heart disease risk prediction and analysis. It integrates four pillars of data science: Data Engineering (SQL Star Schema), Data Analysis (Excel), Data Visualization (Power BI), and Machine Learning with Explainable AI (Python, LightGBM, SHAP, Streamlit).</p>
+
+<h3>Objectives</h3>
+<ol>
+<li>Build a <strong>binary classification model</strong> to predict heart disease risk using the CDC BRFSS dataset (319,795 patients, 48 features).</li>
+<li>Engineer <strong>25+ advanced features</strong> from raw data (BMI categories, Risk Scores, Lifestyle Scores, Geographic Enrichment).</li>
+<li>Optimize model performance using <strong>Bayesian Hyperparameter Tuning (Optuna)</strong> achieving 0.8404 ROC-AUC and 80.57% Recall.</li>
+<li>Provide <strong>Explainable AI (XAI)</strong> using SHAP values so doctors can understand model decisions.</li>
+<li>Design a <strong>Star Schema data warehouse</strong> (6 dimension tables + 1 fact table) feeding into Power BI dashboards.</li>
+<li>Deliver an <strong>interactive Streamlit web application</strong> for real-time patient risk prediction.</li>
+</ol>
+
+<h3>Scope</h3>
+<table>
+<thead><tr><th>In Scope</th><th>Out of Scope</th></tr></thead>
+<tbody>
+<tr><td>Heart disease risk prediction (binary classification)</td><td>Multi-class disease diagnosis</td></tr>
+<tr><td>CDC BRFSS 2020 dataset (319,795 records)</td><td>Real-time hospital EHR integration</td></tr>
+<tr><td>6 ML models + Stacking Ensemble</td><td>Deep learning (CNN/RNN) architectures</td></tr>
+<tr><td>Streamlit web app for doctors</td><td>Mobile application development</td></tr>
+<tr><td>Power BI interactive dashboards</td><td>Tableau or other BI tools</td></tr>
+<tr><td>SQL Server Star Schema</td><td>NoSQL or cloud-based databases</td></tr>
+</tbody>
+</table>
+
+<!-- ──────── PROJECT PLAN ──────── -->
+<h2>1.2 Project Plan — Timeline (Gantt Chart)</h2>
+
+<table>
+<thead><tr><th>Phase</th><th>Start Date</th><th>End Date</th><th>Duration</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Project Planning & Proposal</td><td>Feb 1, 2026</td><td>Feb 20, 2026</td><td>3 weeks</td><td>✅ Complete</td></tr>
+<tr><td>Data Collection & Exploration</td><td>Feb 21, 2026</td><td>Mar 15, 2026</td><td>3 weeks</td><td>✅ Complete</td></tr>
+<tr><td>Feature Engineering & Data Cleaning</td><td>Mar 16, 2026</td><td>Apr 10, 2026</td><td>4 weeks</td><td>✅ Complete</td></tr>
+<tr><td>Literature Review & Research</td><td>Mar 1, 2026</td><td>Apr 20, 2026</td><td>7 weeks</td><td>✅ Complete</td></tr>
+<tr><td>SQL Star Schema & Database Design</td><td>Apr 1, 2026</td><td>Apr 25, 2026</td><td>4 weeks</td><td>✅ Complete</td></tr>
+<tr><td>Excel Data Analysis</td><td>Apr 5, 2026</td><td>Apr 30, 2026</td><td>4 weeks</td><td>✅ Complete</td></tr>
+<tr><td>ML Pipeline V1 (Baseline Models)</td><td>Apr 15, 2026</td><td>May 15, 2026</td><td>4 weeks</td><td>✅ Complete</td></tr>
+<tr><td>ML Pipeline V2 (Optuna Tuning)</td><td>May 16, 2026</td><td>Jun 10, 2026</td><td>4 weeks</td><td>✅ Complete</td></tr>
+<tr><td>Power BI Dashboard Development</td><td>May 1, 2026</td><td>Jun 15, 2026</td><td>6 weeks</td><td>✅ Complete</td></tr>
+<tr><td>Streamlit Web App Development</td><td>Jun 1, 2026</td><td>Jun 25, 2026</td><td>4 weeks</td><td>✅ Complete</td></tr>
+<tr><td>SHAP & Explainable AI Integration</td><td>Jun 15, 2026</td><td>Jun 30, 2026</td><td>2 weeks</td><td>✅ Complete</td></tr>
+<tr><td>Documentation & Final Presentation</td><td>Jul 1, 2026</td><td>Jul 17, 2026</td><td>2.5 weeks</td><td>✅ Complete</td></tr>
+</tbody>
+</table>
+
+<h3>Visual Gantt Chart</h3>
+<div class="gantt">
+<div class="gantt-row"><span class="gantt-label">Planning</span><div class="gantt-bar-wrap"><div class="gantt-bar" style="width:12%;background:#1565c0;margin-left:0">Feb</div></div></div>
+<div class="gantt-row"><span class="gantt-label">Data Collection</span><div class="gantt-bar-wrap"><div class="gantt-bar" style="width:12%;background:#1976d2;margin-left:8%">Mar</div></div></div>
+<div class="gantt-row"><span class="gantt-label">Feature Engineering</span><div class="gantt-bar-wrap"><div class="gantt-bar" style="width:16%;background:#1e88e5;margin-left:14%">Mar-Apr</div></div></div>
+<div class="gantt-row"><span class="gantt-label">Literature Review</span><div class="gantt-bar-wrap"><div class="gantt-bar" style="width:28%;background:#42a5f5;margin-left:8%">Mar-Apr</div></div></div>
+<div class="gantt-row"><span class="gantt-label">SQL Star Schema</span><div class="gantt-bar-wrap"><div class="gantt-bar" style="width:16%;background:#2e7d32;margin-left:20%">Apr</div></div></div>
+<div class="gantt-row"><span class="gantt-label">Excel Analysis</span><div class="gantt-bar-wrap"><div class="gantt-bar" style="width:16%;background:#43a047;margin-left:22%">Apr-May</div></div></div>
+<div class="gantt-row"><span class="gantt-label">ML V1 Baseline</span><div class="gantt-bar-wrap"><div class="gantt-bar" style="width:16%;background:#e65100;margin-left:28%">Apr-May</div></div></div>
+<div class="gantt-row"><span class="gantt-label">ML V2 Optuna</span><div class="gantt-bar-wrap"><div class="gantt-bar" style="width:16%;background:#ef6c00;margin-left:40%">May-Jun</div></div></div>
+<div class="gantt-row"><span class="gantt-label">Power BI Dashboard</span><div class="gantt-bar-wrap"><div class="gantt-bar" style="width:24%;background:#7b1fa2;margin-left:36%">May-Jun</div></div></div>
+<div class="gantt-row"><span class="gantt-label">Streamlit App</span><div class="gantt-bar-wrap"><div class="gantt-bar" style="width:16%;background:#ad1457;margin-left:48%">Jun</div></div></div>
+<div class="gantt-row"><span class="gantt-label">SHAP / XAI</span><div class="gantt-bar-wrap"><div class="gantt-bar" style="width:10%;background:#c62828;margin-left:56%">Jun</div></div></div>
+<div class="gantt-row"><span class="gantt-label">Documentation</span><div class="gantt-bar-wrap"><div class="gantt-bar" style="width:12%;background:#37474f;margin-left:64%">Jul</div></div></div>
+</div>
+
+<!-- ──────── MILESTONES ──────── -->
+<h3>Key Milestones & Deliverables</h3>
+<table>
+<thead><tr><th>Milestone</th><th>Deliverable</th><th>Date</th></tr></thead>
+<tbody>
+<tr><td>M1 — Data Ready</td><td>Cleaned dataset with 25+ engineered features</td><td>Apr 10, 2026</td></tr>
+<tr><td>M2 — Star Schema Complete</td><td>6 dimension tables + fact table in SQL Server</td><td>Apr 25, 2026</td></tr>
+<tr><td>M3 — Baseline Models</td><td>6 trained models with evaluation metrics</td><td>May 15, 2026</td></tr>
+<tr><td>M4 — Optimized Models</td><td>Optuna-tuned V2 models (LightGBM: 0.8404 AUC)</td><td>Jun 10, 2026</td></tr>
+<tr><td>M5 — Dashboard Live</td><td>Interactive Power BI dashboard with KPIs</td><td>Jun 15, 2026</td></tr>
+<tr><td>M6 — Web App Deployed</td><td>Streamlit app with real-time SHAP explanations</td><td>Jun 30, 2026</td></tr>
+<tr><td>M7 — Project Delivered</td><td>Complete documentation + final presentation</td><td>Jul 17, 2026</td></tr>
+</tbody>
+</table>
+
+<!-- ──────── TASK ASSIGNMENT ──────── -->
+<h2>1.3 Task Assignment & Roles</h2>
+
+<table>
+<thead><tr><th>Team Member</th><th>Role</th><th>Responsibilities</th></tr></thead>
+<tbody>
+<tr><td><strong>Abdelrahman Alnaggar</strong></td><td>ML Engineer & BI Developer</td><td>
+• Feature Engineering (25+ features)<br>
+• ML Pipeline V1 & V2 (6 models + Stacking Ensemble)<br>
+• Optuna Bayesian Hyperparameter Tuning<br>
+• SHAP & Explainable AI integration<br>
+• Streamlit Web Application development<br>
+• K-Means Patient Segmentation<br>
+• Power BI Dashboard design & development<br>
+• Star Schema data warehouse design
+</td></tr>
+<tr><td><strong>Ahmed Elsayed</strong></td><td>Data Analyst & DB Developer</td><td>
+• Excel Data Analysis (pivot tables, statistical profiling)<br>
+• Data cleaning & initial exploration<br>
+• SQL Server database implementation<br>
+• SQL queries (demographics, habits, states analysis)<br>
+• Star Schema implementation in SQL Server
+</td></tr>
+</tbody>
+</table>
+
+<!-- ──────── RISK ASSESSMENT ──────── -->
+<h2>1.4 Risk Assessment & Mitigation Plan</h2>
+
+<table>
+<thead><tr><th>Risk</th><th>Severity</th><th>Probability</th><th>Impact</th><th>Mitigation Strategy</th></tr></thead>
+<tbody>
+<tr><td>Class Imbalance (8.6% positive)</td><td class="risk-h">High</td><td>Certain</td><td>Model biased to predict "healthy"</td><td>Applied SMOTE + is_unbalance flag + evaluation via ROC-AUC & Recall instead of Accuracy</td></tr>
+<tr><td>Overfitting on SMOTE data</td><td class="risk-h">High</td><td>High</td><td>Model memorizes synthetic patterns</td><td>SMOTE applied to training set only; test set kept original; used cross-validation</td></tr>
+<tr><td>Large dataset performance</td><td class="risk-m">Medium</td><td>Medium</td><td>Slow training & memory issues</td><td>Optuna sampled 50K rows for tuning; full data for final training</td></tr>
+<tr><td>Missing values in Comorbidity_Level</td><td class="risk-m">Medium</td><td>Certain</td><td>192,255 NULLs in database</td><td>Verified Count=0 → filled with "None" across all data files</td></tr>
+<tr><td>GitHub file size limits (>100MB)</td><td class="risk-m">Medium</td><td>High</td><td>Cannot push Excel/model files</td><td>Added .xlsx to .gitignore; compressed Excel to .zip (86MB)</td></tr>
+<tr><td>Neural Network overfitting</td><td class="risk-l">Low</td><td>Medium</td><td>MLP achieves 0.94 train / 0.76 test AUC</td><td>Selected LightGBM V2 as final model; documented MLP failure analysis</td></tr>
+</tbody>
+</table>
+
+<!-- ──────── KPIs ──────── -->
+<h2>1.5 KPIs — Key Performance Indicators</h2>
+
+<table>
+<thead><tr><th>KPI</th><th>Target</th><th>Achieved</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>ROC-AUC Score</td><td>≥ 0.82</td><td><strong>0.8404</strong></td><td>✅ Exceeded</td></tr>
+<tr><td>Recall (Sensitivity)</td><td>≥ 75%</td><td><strong>80.57%</strong></td><td>✅ Exceeded</td></tr>
+<tr><td>PR-AUC Score</td><td>≥ 0.30</td><td><strong>0.3525</strong></td><td>✅ Exceeded</td></tr>
+<tr><td>Number of ML Models Trained</td><td>≥ 4</td><td><strong>6 + Stacking</strong></td><td>✅ Exceeded</td></tr>
+<tr><td>Feature Engineering (new columns)</td><td>≥ 10</td><td><strong>25+</strong></td><td>✅ Exceeded</td></tr>
+<tr><td>Explainable AI Coverage</td><td>SHAP integration</td><td><strong>SHAP + PDP</strong></td><td>✅ Exceeded</td></tr>
+<tr><td>Web App Availability</td><td>Streamlit app running</td><td><strong>Multi-version app</strong></td><td>✅ Achieved</td></tr>
+<tr><td>Dashboard Delivery</td><td>Power BI dashboard</td><td><strong>Interactive .pbix</strong></td><td>✅ Achieved</td></tr>
+<tr><td>Data Warehouse Design</td><td>Star Schema</td><td><strong>6 dims + 1 fact</strong></td><td>✅ Achieved</td></tr>
+<tr><td>Documentation Completeness</td><td>7 documents</td><td><strong>7 documents</strong></td><td>✅ Achieved</td></tr>
+</tbody>
+</table>
+
+<div class="note">
+<strong>Note:</strong> All KPIs were exceeded or met. The model's 80.57% Recall means it correctly identifies ~4 out of 5 heart disease patients, providing strong clinical safety for medical screening applications.
+</div>
+
+<hr>
+<div class="footer">
+Heart Disease Prediction — DEPI Graduation Project 2026<br>
+Abdelrahman Alnaggar & Ahmed Elsayed
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>05 - Implementation (Source Code & Execution)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+:root{--p:#1a237e;--pl:#3949ab;--a:#c62828;--bg:#fff;--t:#1a1a2e;--tl:#555;--bd:#e0e0e0;--sbg:#f8f9ff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:'Inter','Cairo',sans-serif;
+    color:var(--t);
+    background:var(--bg);
+    line-height:1.8;
+    font-size:13px;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+/* ── PRINT RULES TO HIDE PATH, TIME & HEADERS ── */
+@media print {
+    @page {
+        margin: 0 !important; /* This completely disables browser headers, footers, path and time */
+    }
+    body {
+        margin: 0 !important;
+        padding: 2cm 1.5cm !important; /* Re-applies clean margins to all printed pages */
+        background: #fff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    .cover{
+        margin: -2cm -1.5cm !important; /* Offsets body padding to make cover page full bleed */
+        height: 100vh !important;
+        min-height: 100vh !important;
+        page-break-after:always;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        background: #1a237e !important;
+        background: linear-gradient(135deg,#1a237e 0%,#283593 50%,#3949ab 100%) !important;
+    }
+    .cover * {
+        color: #ffffff !important;
+    }
+    .content {
+        padding: 0 !important;
+    }
+    h2{page-break-before:always}
+    h2:first-of-type{page-break-before:avoid}
+}
+
+@page{size:A4;margin:2cm 1.5cm}
+.cover{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:92vh;
+    text-align:center;
+    background: #1a237e;
+    background:linear-gradient(135deg,#1a237e,#283593,#3949ab);
+    color:#fff;
+    padding:60px 40px;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+.cover-icon{font-size:70px;margin-bottom:15px}.cover-title{font-size:28px;font-weight:900;margin-bottom:8px}.cover-sub{font-size:16px;opacity:.9;margin-bottom:5px}.cover-proj{font-size:14px;opacity:.7;margin-bottom:30px}
+.cover-team{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:20px 35px}.cover-team h3{font-size:14px;margin-bottom:10px;opacity:.85}
+.tm{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.15);gap:20px}.tm:last-child{border:none}.tm-n{font-weight:700;font-size:14px}.tm-r{font-size:12px;opacity:.8}
+.cover-yr{margin-top:30px;font-size:13px;opacity:.6}
+.content{max-width:880px;margin:0 auto;padding:40px 30px}
+h1{font-size:24px;color:var(--p);margin-bottom:18px;padding-bottom:8px;border-bottom:3px solid var(--p)}
+h2{font-size:19px;color:var(--p);margin:30px 0 14px;padding:10px 18px;background:linear-gradient(90deg,var(--sbg),transparent);border-left:4px solid var(--p);border-radius:0 8px 8px 0; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+h3{font-size:15px;color:var(--pl);margin:18px 0 8px;border-left:3px solid var(--a);padding-left:12px}
+h4{font-size:13px;margin:12px 0 6px;font-weight:700}
+p,li{margin-bottom:7px;text-align:justify}ul,ol{padding-left:22px;margin-bottom:10px}strong{color:var(--p)}
+code{background:#f5f5f5;padding:2px 5px;border-radius:3px;font-family:Consolas,monospace;font-size:11px}
+pre{background:#1e1e2e;color:#cdd6f4;padding:14px 18px;border-radius:8px;overflow-x:auto;margin:10px 0;font-family:Consolas,monospace;font-size:11px;line-height:1.5}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:12px}
+thead th{background:var(--p);color:#fff;padding:9px 10px;font-weight:700;text-align:center; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}thead th:first-child{text-align:left}
+tbody td{padding:7px 10px;border-bottom:1px solid var(--bd)}tbody td:first-child{font-weight:600}tbody tr:nth-child(even){background:#fafafa; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+.note{background:#e3f2fd;border-left:4px solid #1976d2;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:12px; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+hr{border:none;border-top:2px solid var(--bd);margin:25px 0}
+.footer{text-align:center;padding:25px;margin-top:30px;background:var(--sbg);border-radius:10px;font-size:11px;color:var(--tl); -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="cover-icon">💻</div>
+<div class="cover-title">Implementation</div>
+<div class="cover-sub">Source Code, Version Control & Execution</div>
+<div class="cover-proj">DEPI Graduation Project — Document 5 of 7</div>
+<div class="cover-team"><h3>👥 Project Team</h3><div class="tm"><span class="tm-n">Abdelrahman Alnaggar</span><span class="tm-r">Machine Learning & AI + Power BI</span></div><div class="tm"><span class="tm-n">Ahmed Elsayed</span><span class="tm-r">Excel Data Analysis + SQL</span></div></div>
+<div class="cover-yr">DEPI R1 — رواد مصر الرقمية — 2026</div>
+</div>
+
+<div class="content">
+<h1>💻 5. Implementation (Source Code & Execution)</h1>
+
+<!-- ──────── 5.1 SOURCE CODE STRUCTURE ──────── -->
+<h2>5.1 Source Code Structure & Organization</h2>
+<p>The codebase is structured logically to separate machine learning pipelines, raw data storage, visualization dashboards, and the interactive web application. This modular structure promotes code reusability and simplifies system maintenance.</p>
+
+<h3>Directory Tree</h3>
+<pre>
+Final Project/
+├── README.md                          # Main project portal
+├── Project_Documentation_AR.md         # Comprehensive academic documentation in Arabic
+├── Project_Documentation.html         # Documentation print version
+├── .gitignore                         # Excludes large binaries (.pkl, .xlsx)
+│
+├── Excel/                             # 1. Excel Component
+│   └── DEPI Graduation Project.zip     # Compressed Excel file (under 100MB)
+│
+├── Sql/                               # 2. SQL Component
+│   └── Depi Graduation Project SQL.sql # SQL database schemas and queries
+│
+├── power bi/                          # 3. Power BI Component
+│   └── heart disease.pbix             # Interactive Power BI dashboard file
+│
+└── Machine Learning/                  # 4. Machine Learning Component
+    ├── app.py                         # Streamlit multi-version medical web app
+    ├── heart_disease_project.ipynb     # Jupyter Notebook: exploratory analysis & training
+    ├── Feature_Engineering_Heart_Disease.ipynb # Feature engineering notebook (10 steps)
+    ├── requirements.txt               # Python package dependencies
+    ├── pipelines/                     # Python execution pipelines
+    │   ├── ml_pipeline.py             # Baseline V1 Pipeline (6 models)
+    │   └── ml_pipeline_v2.py            # Tuned V2 Pipeline (Optuna tuning)
+    └── outputs/                       # Saved model outputs & performance charts
+        ├── best_model.pkl             # V1 model file (Random Forest baseline)
+        ├── model_comparison.csv       # Comparison table of V1 models
+        └── v2/                        # V2 model outputs
+            ├── best_model_v2.pkl      # V2 tuned LightGBM model file
+            └── optuna_summary.pkl     # Hyperparameter optimization history
+</pre>
+
+<!-- ──────── 5.2 CODING STANDARDS ──────── -->
+<h2>5.2 Coding Standards & Best Practices</h2>
+
+<h3>Modular Code & Reusability</h3>
+<p>All scripts are organized into distinct logical functions with clear input and output parameters. Global configuration constants (such as random seeds, paths, and thresholds) are defined at the top of each file.</p>
+
+<h3>Naming Conventions</h3>
+<p>The code strictly adheres to Python's standard style guides:</p>
+<ul>
+<li><strong>Variables and Functions:</strong> Written in <code>snake_case</code> (e.g., <code>calculate_risk_score</code>, <code>data_path</code>).</li>
+<li><strong>Classes:</strong> Written in <code>PascalCase</code> (e.g., <code>ModelPipeline</code>).</li>
+<li><strong>Constants:</strong> Written in <code>UPPER_SNAKE_CASE</code> (e.g., <code>RANDOM_STATE = 42</code>, <code>YOUDEN_THRESHOLD = 0.4922</code>).</li>
+<li><strong>SQL Schemas:</strong> Follows star-schema naming conventions with <code>fact_</code> and <code>dim_</code> prefixes.</li>
+</ul>
+
+<h3>Security & Error Handling</h3>
+<ul>
+<li><strong>No Sensitive Credentials:</strong> No API keys or credentials are stored in clear text.</li>
+<li><strong>Graceful Degradation:</strong> The web app uses try-except blocks when computing SHAP values or loading pickle models. If SHAP computation fails due to missing dependencies, the app gracefully falls back to showing prediction scores and warnings without crashing.</li>
+<li><strong>Type Castings:</strong> Input inputs from form elements are cast and verified (e.g., casting age midpoints to numeric values).</li>
+</ul>
+
+<!-- ──────── 5.3 DATABASE SCHEMAS ──────── -->
+<h2>5.3 Database Schema Mapping (SQL DDL)</h2>
+<p>Below is a snippet of the DDL schema utilized to configure the Star Schema tables in SQL Server:</p>
+
+<pre>
+-- 1. Create Geography Dimension
+CREATE TABLE dim_Geography (
+    State NVARCHAR(100) PRIMARY KEY,
+    Region NVARCHAR(50),
+    Population_M FLOAT,
+    State_HD_Prevalence FLOAT,
+    Obesity_Rate_Pct FLOAT,
+    Smoking_Rate_Pct FLOAT,
+    Uninsured_Rate_Pct FLOAT,
+    Median_Income_K FLOAT,
+    State_Health_Rank INT
+);
+
+-- 2. Create Patient Dimension
+CREATE TABLE dim_Patients (
+    PatientID VARCHAR(50) PRIMARY KEY,
+    Sex INT,
+    AgeCategory NVARCHAR(50),
+    Age_Numeric INT,
+    Age_Group NVARCHAR(50),
+    Race NVARCHAR(100)
+);
+
+-- 3. Create Fact Table
+CREATE TABLE fact_Diagnosis (
+    PatientID VARCHAR(50) PRIMARY KEY,
+    State NVARCHAR(100),
+    DateID INT,
+    HeartDisease INT,
+    Risk_Score FLOAT,
+    Risk_Tier NVARCHAR(50),
+    ML_Probability FLOAT,
+    ML_Prediction INT,
+    Patient_Segment INT,
+    Patient_Segment_Label NVARCHAR(100),
+    FOREIGN KEY (PatientID) REFERENCES dim_Patients(PatientID),
+    FOREIGN KEY (State) REFERENCES dim_Geography(State)
+);
+</pre>
+
+<!-- ──────── 5.4 VERSION CONTROL ──────── -->
+<h2>5.4 Version Control & Collaboration Strategy</h2>
+<p>The project is hosted on GitHub to manage version control and collaborative development. Our workflow follows a structured Git model:</p>
+<ul>
+<li><strong>Branching Strategy:</strong> A clean <code>main</code> branch represents production-ready code. Features were developed in local branches and merged via documented commits.</li>
+<li><strong>Commit Messages:</strong> Follow clear descriptions (e.g., <code>"Add Feature Engineering notebook, team credits, and HTML documentation for PDF"</code>).</li>
+<li><strong>Large File Handling:</strong> Git LFS (Large File Storage) or `.gitignore` was configured for files exceeding GitHub's 100MB limit (like raw `.xlsx` datasets and `.pkl` models) to prevent repository bloating.</li>
+</ul>
+
+<!-- ──────── 5.5 EXECUTION GUIDE ──────── -->
+<h2>5.5 Execution Guide</h2>
+
+<h3>System Requirements</h3>
+<ul>
+<li><strong>Operating System:</strong> Windows 10/11 or Linux</li>
+<li><strong>Python Version:</strong> 3.8, 3.9, or 3.10</li>
+<li><strong>RAM:</strong> Minimum 8 GB (16 GB recommended for running full Optuna pipelines)</li>
+<li><strong>Disk Space:</strong> 500 MB (excluding raw data files)</li>
+</ul>
+
+<h3>Step 1: Clone the Repository</h3>
+<pre>
+git clone https://github.com/nhahub/NHA-4-210.git
+cd NHA-4-210
+</pre>
+
+<h3>Step 2: Install Python Dependencies</h3>
+<pre>
+pip install -r "Machine Learning/requirements.txt"
+</pre>
+
+<h3>Step 3: Launching the Web App</h3>
+<p>To run the Streamlit real-time risk diagnostic application, execute the following in your shell:</p>
+<pre>
+streamlit run "Machine Learning/app.py"
+</pre>
+<p>This will start a local server and open your default browser to <code>http://localhost:8501</code>.</p>
+
+<h3>Step 4: Executing the ML Pipelines</h3>
+<pre>
+# Run V1 Baseline Training (saves to outputs/)
+python "Machine Learning/pipelines/ml_pipeline.py"
+
+# Run V2 Optuna Tuning and Training (saves to outputs/v2/)
+python "Machine Learning/pipelines/ml_pipeline_v2.py"
+</pre>
+
+<hr>
+<div class="footer">
+Heart Disease Prediction — DEPI Graduation Project 2026<br>
+Abdelrahman Alnaggar & Ahmed Elsayed
+</div>
+</div>
+</body>
+</html>
