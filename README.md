@@ -23,6 +23,7 @@ This graduation project delivers an end-to-end medical decision support system. 
 
 | Name | Role |
 |------|------|
+| **Ali Khalid** | Project Manager & Team Leader |
 | **Abdelrahman Alnaggar** | Machine Learning & AI Pipeline + Power BI Dashboard |
 | **Ahmed Elsayed** | Excel Data Analysis + SQL Database & Querying |
 | **Ali Khaled** |
@@ -40,8 +41,23 @@ Final Project/
 ├── Excel/                         # 1. Excel Component
 │   └── DEPI Graduation Project.zip (Compressed archive of the 113.8MB Excel project; extract to view)
 │
-├── Sql/                           # 2. SQL Component
-│   └── Depi Graduation Project SQL.sql # SQL Server analysis queries (demographics, habits, states)
+├── sql/                           # 2. SQL Component (Medallion Architecture)
+│   ├── 01_CreateDatabase.sql      # Database initialization
+│   ├── 02_StagingLayer.sql        # Staging layer tables
+│   ├── 03_BronzeLayer.sql         # Raw data ingestion
+│   ├── 04_SilverLayer.sql         # Cleansed and standardized data
+│   ├── 05_GoldLayer.sql           # Business-level aggregates (Star Schema)
+│   ├── 06_Logging.sql             # ETL audit logging
+│   ├── 07_AdvancedAnalytics.sql   # Complex analytical queries
+│   └── HeartDiseaseDB.bak         # Full database backup
+│
+├── etl/                           # Python ETL Pipelines
+│   ├── orchestrator.py            # Main pipeline runner
+│   ├── load_staging.py            # Loads CSV to staging
+│   ├── load_bronze.py             # Staging to Bronze layer
+│   ├── load_silver.py             # Bronze to Silver layer with transformations
+│   ├── run_gold_views.py          # Materializes Gold layer views
+│   └── db_connection.py           # SQL Server connection handler
 │
 ├── power bi/                      # 3. Power BI Component
 │   └── heart disease.pbix         # The Power BI interactive dashboard file (51.5 MB)

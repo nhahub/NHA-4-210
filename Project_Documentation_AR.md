@@ -6,6 +6,7 @@
 
 | الاسم | الدور والمسئولية |
 | :--- | :--- |
+| **Ali Khalid** | Project Manager & Team Leader |
 | **Abdelrahman Alnaggar** | Machine Learning & AI Pipeline + Power BI Dashboard |
 | **Ahmed Elsayed** | Excel Data Analysis + SQL Database & Querying |
 
@@ -37,6 +38,7 @@
 ## 📂 3. هيكل الملفات البرمجية وهيكل قاعدة البيانات (Star Schema)
 
 ### أ. الهيكل البرمجي للمشروع:
+*   **بنية مستودع البيانات (Medallion Architecture):** تم تصميم قواعد البيانات وتدفقها عبر مراحل (Staging, Bronze, Silver, Gold) باستخدام نصوص SQL الموزعة في مجلد `sql/` وإدارتها بواسطة خطوط إنتاج بايثون (ETL Pipelines) في مجلد `etl/` (مثل `orchestrator.py` و `load_silver.py`).
 *   [ml_pipeline.py](file:///Machine%20Learning/pipelines/ml_pipeline.py): بناء خط الإنتاج الأساسي (V1 Baseline) وتدريب 6 نماذج بالمعاملات الافتراضية وحفظ النتائج في `outputs/`.
 *   [ml_pipeline_v2.py](file:///Machine%20Learning/pipelines/ml_pipeline_v2.py): خط الإنتاج المتقدم (V2 Tuned) باستخدام **Optuna** للتحسين البايزي وحساب منحنيات التعلم وحفظ النتائج في `outputs/v2/`.
 *   [app.py](file:///Machine%20Learning/app.py): واجهة المستخدم الطبية التفاعلية المبنية بـ **Streamlit** والتي تدعم تفسير SHAP الفوري.
